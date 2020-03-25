@@ -8,3 +8,6 @@ npm run dev
 
 Go to localhost:3000
 ```
+
+## Notes
+The html_css folder is just a starter template to follow along with the tutorial at https://www.youtube.com/watch?v=jD7FnbI76Hg&t=1339s.
