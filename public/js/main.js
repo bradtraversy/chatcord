@@ -79,3 +79,65 @@ function outputUsers(users) {
     userList.appendChild(li);
   });
  }
+
+// Catch Call event
+const callBtn = document.getElementById('call-btn')
+callBtn.addEventListener('click', streamAudio)
+
+
+// Stream audio to server
+function streamAudio() {
+  navigator.getUserMedia({
+    audio: true
+  }, function (stream) {
+    console.log('Start streaming!')
+    // var speechLang = meetingConfig.lang
+
+    // Start RecordRTC to stream audio
+    recordAudio = RecordRTC(stream, {
+      type: 'audio',
+      mimeType: 'audio/webm',
+      sampleRate: 44100,
+      recorderType: StereoAudioRecorder,
+      numberOfAudioChannels: 1,
+      timeSlice: 500,
+      desiredSampRate: 16000,
+
+      // as soon as the stream is available
+      ondataavailable: function (blob) {
+        // making use of socket.io-stream for bi-directional
+        // streaming, create a stream
+        var stream = ss.createStream();
+        // stream directly to server
+        // it will be temp. stored locally
+        ss(socket).emit('stream-transcribe', stream, {
+          // 'name': 'stream.wav',
+          // 'size': blob.size,
+          'userName': username,
+          'room': room,
+          // 'speechLang': speechLang,
+          // 'transLang': transLang,
+          // 'socketId': socketId
+        });
+        // pipe the audio blob to the read stream
+        ss.createBlobReadStream(blob).pipe(stream);
+      }
+    });
+    recordAudio.startRecording();
+  }, function (error) {
+    console.error(JSON.stringify(error));
+  });
+}
+
+// Check muted status
+function mutedStatus() {
+  ZoomMtg.getCurrentUser({
+    success: function (res) {
+      if (!res.result.currentUser.muted) {
+        recordAudio.pauseRecording();
+      } else {
+        recordAudio.resumeRecording();
+      }
+    }
+  });
+}

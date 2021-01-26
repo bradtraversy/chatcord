@@ -51,6 +51,11 @@ io.on('connection', socket => {
     io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
+  // Listen for stream-transcribe
+  socket.on('stream-transcribe', (stream, data) => {
+
+  })
+
   // Runs when client disconnects
   socket.on('disconnect', () => {
     const user = userLeave(socket.id);
