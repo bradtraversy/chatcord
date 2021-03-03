@@ -50,6 +50,13 @@ io.on('connection', socket => {
 
     io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
+  
+  //Listen for geolocation
+  socket.on('sendLocationInfos',(coords) => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('sendLocationMessage', locationGenerator(user.username,coords))
+  })
 
   // Runs when client disconnects
   socket.on('disconnect', () => {
