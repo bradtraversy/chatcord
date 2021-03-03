@@ -8,4 +8,16 @@ function formatMessage(username, text) {
   };
 }
 
-module.exports = formatMessage;
+function locationGenerator(username,coords){
+  return{
+    username,
+    lat:coords.lat,
+    lon:coords.lon,
+    time: moment().format('h:mm a')
+  }
+}
+
+module.exports = {
+  locationGenerator,
+  formatMessage
+};
