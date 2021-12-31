@@ -19,6 +19,17 @@ socket.on('roomUsers', ({ room, users }) => {
   outputUsers(users);
 });
 
+// Get previous messages
+socket.on('previousMessages', (messages) => {
+  console.log(messages);
+  messages.forEach(message => {
+    outputMessage(message);
+
+    // Scroll down
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+});
+
 // Message from server
 socket.on('message', (message) => {
   console.log(message);
