@@ -9,7 +9,7 @@ function userJoin(id, username, room) {
 }
 
 // Get current user
-async function getCurrentUser(id) {
+function getCurrentUser(id) {
   return ActiveUser.findOne({ clientId: id });
 }
 

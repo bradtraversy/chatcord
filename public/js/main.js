@@ -21,7 +21,6 @@ socket.on('roomUsers', ({ room, users }) => {
 
 // Get previous messages
 socket.on('previousMessages', (messages) => {
-  console.log(messages);
   messages.forEach(message => {
     outputMessage(message);
 
