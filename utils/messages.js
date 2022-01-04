@@ -15,7 +15,7 @@ function formatMessage(room, username, text) {
     return {
       username,
       text,
-      time: date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+      date
     };
 }
 
@@ -24,16 +24,12 @@ function formatBotMessage(username, text) {
   return {
     username,
     text,
-    time: date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    date
   };
 }
 
-async function getMessages(room) {
-  const messages = await Message.find({ room }).limit(100).sort('date').lean();
-  messages.map(message => {
-    message.time = new Date(message.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-  });
-  return messages;
+function getMessages(room) {
+  return Message.find({ room }).limit(100).sort('date').lean();
 }
 
 module.exports = {
