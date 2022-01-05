@@ -1,11 +1,39 @@
-const moment = require('moment');
+const Message = require("../models/Message");
 
-function formatMessage(username, text) {
+function formatMessage(room, username, text) {
+  const date = new Date();
+  const newMessage = new Message(
+    {
+      text,
+      username,
+      room,
+      date
+    }
+  );
+  const errors = newMessage.validateSync();
+  newMessage.save();
+    return {
+      username,
+      text,
+      date
+    };
+}
+
+function formatBotMessage(username, text) {
+  const date = new Date();
   return {
     username,
     text,
-    time: moment().format('h:mm a')
+    date
   };
 }
 
-module.exports = formatMessage;
+function getMessages(room) {
+  return Message.find({ room }).limit(100).sort('date').lean();
+}
+
+module.exports = {
+  formatMessage,
+  formatBotMessage,
+  getMessages
+};
