@@ -1,20 +1,28 @@
 {
   "name": "chatcord",
   "version": "1.0.0",
-  "description": "Realtime chat app with rooms",
+  "description": "real time chat app with socket.io",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
   },
-  "author": "Brad Traversy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BHANUJATIN/chatcord.git"
+  },
+  "author": "BhanuJatin",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BHANUJATIN/chatcord/issues"
+  },
+  "homepage": "https://github.com/BHANUJATIN/chatcord#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "moment": "^2.24.0",
-    "socket.io": "^2.4.0"
+    "express": "^4.17.2",
+    "moment": "^2.29.1",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.15"
   }
 }
