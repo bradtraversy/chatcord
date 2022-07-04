@@ -28,6 +28,10 @@ socket.on('message', (message) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
+socket.on('newImg', (user, img, color) => {
+  displayImage(user, img, color);
+});
+
 // Message submit
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -48,7 +52,18 @@ chatForm.addEventListener('submit', (e) => {
   e.target.elements.msg.value = '';
   e.target.elements.msg.focus();
 });
-
+// Output Image to DOM
+function displayImage(user, imgData, color) {
+  const div = document.createElement('div');
+  div.classList.add('newImg');
+  const msgToDisplay = document.createElement('p'),
+    date = new Date().toTimeString().substr(0, 8);
+  msgToDisplay.style.color = color || '#000';
+  msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
+  div.appendChild(msgToDisplay);
+  // div.scrollTop = div.scrollHeight;
+  document.querySelector('.chat-messages').appendChild(div);
+}
 // Output message to DOM
 function outputMessage(message) {
   const div = document.createElement('div');
@@ -79,7 +94,24 @@ function outputUsers(users) {
     userList.appendChild(li);
   });
 }
-
+document.getElementById('sendImage').addEventListener('change', function() {
+  if (this.files.length != 0) {
+      var file = this.files[0],
+          reader = new FileReader(),
+          color = document.getElementById('colorStyle').value;
+      if (!reader) {
+          that.outputMessage('!your browser doesn\'t support fileReader');
+          this.value = '';
+          return;
+      };
+      reader.onload = function(e) {
+          this.value = '';
+          socket.emit('img', e.target.result, color);
+          displayImage('me', e.target.result, color);
+      };
+      reader.readAsDataURL(file);
+  };
+}, false);
 //Prompt the user before leave chat room
 document.getElementById('leave-btn').addEventListener('click', () => {
   const leaveRoom = confirm('Are you sure you want to leave the chatroom?');

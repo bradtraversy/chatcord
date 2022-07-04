@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://kit.fontawesome.com/fc4a4b7c42.js" crossorigin="anonymous"></script>
     <title>ChatCord App</title>
   </head>
   <body>
@@ -37,6 +38,11 @@
             autocomplete="off"
           />
           <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+          <input id="colorStyle" type="color" placeHolder='#000' title="font color" />
+          <label for="sendImage" class="imageLable">
+            <button id="emoji" class="btn"><i class="fa-solid fa-image"></i></button>
+            <input id="sendImage" type="file" value="image"/>
+        </label>
         </form>
       </div>
     </div>

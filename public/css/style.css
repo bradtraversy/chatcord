@@ -91,6 +91,10 @@ a {
 	overflow-y: scroll;
 }
 
+#chat-messages img {
+    max-width: 99%;
+}
+
 .chat-messages .message {
 	padding: 10px;
 	margin-bottom: 15px;
@@ -177,6 +181,29 @@ a {
 .join-main .btn {
 	margin-top: 20px;
 	width: 100%;
+}
+#colorStyle {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    border-radius: 20px;
+}
+
+/*custom the file input*/
+
+.imageLable {
+    position: relative;
+}
+#sendImage {
+    position: absolute;
+    width: 52px;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.timespan {
+    color: #ddd;
 }
 
 @media (max-width: 700px) {
