@@ -38,6 +38,13 @@ a {
 	font-size: 17px;
 }
 
+.location-btn{
+	margin-left: 91.2%;
+	margin-top: 1%;
+	font-size: 17px;
+	width: 92px;
+}
+
 /* Chat Page */
 
 .chat-container {

@@ -2,6 +2,8 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
+const locationBtn = document.getElementById('location-btn');
+
 
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
@@ -49,6 +51,32 @@ chatForm.addEventListener('submit', (e) => {
   e.target.elements.msg.focus();
 });
 
+//Listen for send location
+locationBtn.addEventListener('submit',(e)=>{
+  if(!navigator.geolocation){
+    return alert('Geolocation is not supported in your browser')
+  }else{
+    navigator.geolocation.getCurrentPosition(function(position){
+      socket.emit('sendLocationInfos',{
+        username:username,
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      }) 
+    },function(){
+      alert("Unable to get location.")
+    })
+  };
+  e.preventDefault()
+})
+
+//Locaation message
+socket.on('sendLocationMessage',(message)=>{
+  outputLocationMessage(message)
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+})
+
+
 // Output message to DOM
 function outputMessage(message) {
   const div = document.createElement('div');
@@ -62,6 +90,24 @@ function outputMessage(message) {
   para.classList.add('text');
   para.innerText = message.text;
   div.appendChild(para);
+  document.querySelector('.chat-messages').appendChild(div);
+}
+
+// Location message to DOM
+function outputLocationMessage(message){
+  const div = document.createElement('div');
+  div.classList.add('message');
+  const p = document.createElement('p');
+  p.classList.add('meta');
+  p.innerText = message.username;
+  p.innerHTML += `<span>${message.time}</span>`;
+  div.appendChild(p)
+
+  const a = document.createElement('a');
+  a.innerText ="Here is my location!"
+  a.setAttribute('href',`https://google.com/maps?q=${message.lat},${message.lon}`)
+  a.setAttribute('target','_blank')
+  div.appendChild(a);
   document.querySelector('.chat-messages').appendChild(div);
 }
 
