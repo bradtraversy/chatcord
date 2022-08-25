@@ -56,7 +56,9 @@ function outputMessage(message) {
   const p = document.createElement('p');
   p.classList.add('meta');
   p.innerText = message.username;
-  p.innerHTML += `<span>${message.time}</span>`;
+  const spanTime = document.createElement('span');
+  spanTime.innerText = message.time;
+  p.appendChild(spanTime);
   div.appendChild(p);
   const para = document.createElement('p');
   para.classList.add('text');
