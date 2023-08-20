@@ -25,12 +25,12 @@ app.use(express.static(path.join(__dirname, "public")));
 const botName = "ChatCord Bot";
 
 // * Comment out Code Below when getting an Error: "[nodemon] app crashed - waiting for file changes before starting..."
-// (async () => {
-//   pubClient = createClient({ url: "redis://127.0.0.1:6379" });
-//   await pubClient.connect();
-//   subClient = pubClient.duplicate();
-//   io.adapter(createAdapter(pubClient, subClient));
-// })();
+(async () => {
+   pubClient = createClient({ url: "redis://127.0.0.1:6379" });
+   await pubClient.connect();
+   subClient = pubClient.duplicate();
+   io.adapter(createAdapter(pubClient, subClient));
+})();
 // * ........................... UP UNTIL HERE ............................
 
 // Run when client connects
