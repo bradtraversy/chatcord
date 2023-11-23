@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "node --watch server"
   },
   "author": "Brad Traversy",
   "license": "MIT",
@@ -16,8 +16,5 @@
     "moment": "^2.29.4",
     "redis": "^4.6.11",
     "socket.io": "^4.7.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   }
 }
