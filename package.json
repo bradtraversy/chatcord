@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "node --watch server"
+    "dev": "node --no-warnings --watch server"
   },
   "author": "Brad Traversy",
   "license": "MIT",
