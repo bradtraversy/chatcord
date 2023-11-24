@@ -4,8 +4,11 @@
   "description": "Realtime chat app with rooms",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "docker-up": "docker-compose up -d",
+    "start": "npm run docker-up && node server",
+    "dev": "npm run docker-up && nodemon server",
+    "stop": "docker-compose down",
+    "docker-down": "docker-compose down -v --rmi all"
   },
   "author": "Brad Traversy",
   "license": "MIT",
