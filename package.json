@@ -6,7 +6,7 @@
   "scripts": {
     "docker-up": "docker-compose -p chatcord up -d",
     "start": "npm run docker-up && node server",
-    "dev": "npm run docker-up && node --no warnings --watch server",
+    "dev": "npm run docker-up && node --watch server",
     "stop": "docker-compose -p chatcord down",
     "docker-down": "docker-compose -p chatcord down -v --rmi all"
   },
