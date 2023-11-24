@@ -14,13 +14,13 @@ npm run dev
 ```
 Go to localhost:3000
 
-### To shutdown the application & the Redis container
+### To shutdown the application & the Redis image (Docker container)
 
 ```
 npm run stop
 ```
 
-### To shutdown the application, Redis container & cleanup Redis data
+### To shutdown the application, Redis image (Docker container) & cleanup Redis volume data
 
 ```
 npm run docker-down
