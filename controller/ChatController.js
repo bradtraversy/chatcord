@@ -42,12 +42,11 @@ class ChatController {
     async onChatMessage(socket, io, msg) {
         try {
             const user = await userService.getCurrentUser(socket.id);
-            if (!user) {
-                return;
-            }
+            if (!user) return;
 
-            const message = await messageService.createMessage(user.room, user.username, msg);
-            io.to(user.room).emit("message", formatMessage(user.username, message.text))
+            const message = await messageService.createMessage(user.username, user.room, msg);
+            io.to(user.room).emit("message", formatMessage(user.username, message.text));
+
         } catch (error) {
             console.error(error);
         }
