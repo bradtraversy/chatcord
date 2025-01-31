@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "jest"
   },
   "author": "Brad Traversy",
   "license": "MIT",
@@ -14,10 +15,14 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.1",
     "moment": "^2.24.0",
+    "mongoose": "^8.8.1",
     "redis": "^4.0.2",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.2",
+    "nodemon": "^2.0.2",
+    "redis-mock": "^0.56.3"
   }
 }

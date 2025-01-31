@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  redis:
+    image: redis:7.0-alpine
+    container_name: redis_chatcord
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis-data:/data
+    networks:
+      chatcord:
+        ipv4_address: 172.100.0.2
+  
+  mongo:
+    image: mongo:latest
+    container_name: mongo_chatcord
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-data:/data/db
+      - ./logs:/var/log/mongodb
+    command: "--logpath /var/log/mongodb/mongodb.log --bind_ip_all"
+    networks:
+      chatcord:
+        ipv4_address: 172.100.0.3
+    
+  chatcord_server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    environment:
+      - MONGO_URI=mongodb://mongo_chatcord:27017/chatcord-db
+      - REDIS_URI=redis://redis_chatcord:6379
+      - PORT=3000
+    networks:
+      chatcord:
+        ipv4_address: 172.100.0.4
+    depends_on:
+      - mongo
+      - redis
+
+networks:
+  chatcord:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.100.0.0/24
